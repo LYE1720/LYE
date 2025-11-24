@@ -43,3 +43,38 @@ h2{margin:0 0 12px} .muted{color:var(--muted); margin:0 0 12px}
   border-bottom:1px solid #f0e6ff; z-index:6; display:flex; gap:16px; padding:10px 16px; justify-content:center}
 .topnav a{color:#4d3c7d; font-weight:700; text-decoration:none}
 .topnav a:hover{text-decoration:underline}
+
+/* ===== 美觀導覽列 ===== */
+.topnav{
+  position: sticky; top: 0; z-index: 7;            /* 要壓在彩帶(canvas z=5)上面 */
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 16px;
+  background: rgba(255,255,255,.75);               /* 霧面玻璃 */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #f0e6ff;
+}
+.topnav .brand{
+  display: flex; align-items: center; gap: 8px;
+  margin-right: auto;                               /* 左邊貼 Logo／名稱 */
+  font-weight: 800; color: #4d3c7d; text-decoration: none;
+}
+.topnav .nav{ display: flex; gap: 8px; }
+.topnav a{
+  text-decoration: none;                            /* 去掉底線 */
+  color: #4d3c7d; font-weight: 700;
+  padding: 8px 12px; border-radius: 999px;
+  border: 1px solid transparent;
+  transition: background .2s, border-color .2s, transform .05s;
+}
+.topnav a:hover{ background: #f6f0ff; border-color: #e8d3ff; transform: translateY(-1px); }
+.topnav a[aria-current="page"]{
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  color: #fff; box-shadow: var(--shadow);
+  border-color: transparent;
+}
+@media (max-width: 640px){
+  .topnav{ justify-content: center; }
+  .topnav .brand{ display: none; }                  /* 手機版隱藏左側品牌，保留按鈕 */
+  .topnav .nav{ flex-wrap: wrap; }
+}
+
