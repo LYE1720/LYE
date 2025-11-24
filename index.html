@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🎉 生日快樂！</title>
+  <meta name="description" content="一個為她準備的小小生日驚喜網站。" />
+  <meta property="og:title" content="生日快樂！" />
+  <meta property="og:description" content="打開有彩帶、倒數與給你的話 ✨" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>生日快樂，<span id="friendName">（在這裡填名字）</span>！</h1>
+      <p class="subtitle">這個小網站，專屬於你 💛</p>
+      <div class="hero-actions">
+        <button id="celebrateBtn" class="btn primary">播放彩帶</button>
+        <button id="openLetterBtn" class="btn">打開給你的話</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="countdown" class="card" data-bday="2025-12-15T00:00:00+08:00">
+      <h2>倒數計時</h2>
+      <p class="muted">設定生日：在 index.html 的 <code>data-bday</code> 修改日期時間</p>
+      <div id="clock" class="clock">-- 天 -- 時 -- 分 -- 秒</div>
+      <div id="todayMsg" class="today hidden">🎂 今天就是你的生日！</div>
+    </section>
+
+    <section id="gallery" class="card">
+      <h2>我們的回憶</h2>
+      <p class="muted">把照片放進 <code>/assets</code> 資料夾並在下方替換路徑即可</p>
+      <div class="grid gallery">
+        <img src="assets/photo1.jpg" alt="photo 1"/>
+        <img src="assets/photo2.jpg" alt="photo 2"/>
+        <img src="assets/photo3.jpg" alt="photo 3"/>
+      </div>
+    </section>
+
+    <section id="video" class="card">
+      <h2>給你的影片（可選）</h2>
+      <p class="muted">如果有 YouTube 影片，把連結的 <code>VIDEO_ID</code> 換掉</p>
+      <div class="video-wrap">
+        <iframe width="560" height="315"
+          src="https://www.youtube.com/embed/VIDEO_ID"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section id="guestbook" class="card">
+      <h2>留言牆（可選）</h2>
+      <p class="muted">想要朋友們留言：把 Google 表單的「嵌入 iframe」原始碼貼到這裡，或使用下方簡易本機留言（只存在觀看者裝置）。</p>
+
+      <div class="local-guestbook">
+        <div class="gb-inputs">
+          <input id="gbName" placeholder="你的名字" />
+          <input id="gbMsg" placeholder="想說的話…" />
+          <button id="gbAdd" class="btn small">新增</button>
+          <button id="gbClear" class="btn small ghost">清空本機留言</button>
+        </div>
+        <ul id="gbList" class="gb-list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="letter" class="letter">
+    <form method="dialog">
+      <h3>給你的話</h3>
+      <p>
+        這段文字在 <code>index.html</code> 中可自由撰寫。<br>
+        謝謝你一直以來的陪伴，願你每天都能被溫柔對待。
+      </p>
+      <menu>
+        <button class="btn primary">關閉</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <footer class="footer">
+    <p>Made with 💛 by <span id="yourName">（你的名字）</span></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
