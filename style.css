@@ -38,3 +38,8 @@ h2{margin:0 0 12px} .muted{color:var(--muted); margin:0 0 12px}
 .gb-inputs input{flex:1; min-width:160px; border:1px solid #ecd9ff; border-radius:10px; padding:10px 12px; outline:none}
 .gb-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
 .gb-list li{background:#faf7ff; border:1px solid #efe6ff; padding:10px 12px; border-radius:12px}
+
+.topnav{position:sticky;top:0;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);
+  border-bottom:1px solid #f0e6ff; z-index:6; display:flex; gap:16px; padding:10px 16px; justify-content:center}
+.topnav a{color:#4d3c7d; font-weight:700; text-decoration:none}
+.topnav a:hover{text-decoration:underline}
