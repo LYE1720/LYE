@@ -70,6 +70,37 @@ function setupGB(){
   renderGB();
 }
 
+function setupNotes(){
+  const pairs = [
+    { openBtn: "openNote1", dialog: "note1", textarea: "note1Text", saved: "note1Saved", key: "note1" },
+    { openBtn: "openNote2", dialog: "note2", textarea: "note2Text", saved: "note2Saved", key: "note2" },
+  ];
+  const esc = s => s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+
+  pairs.forEach(p=>{
+    const open = document.getElementById(p.openBtn);
+    const dlg  = document.getElementById(p.dialog);
+    const ta   = document.getElementById(p.textarea);
+    const saved= document.getElementById(p.saved);
+    const saveBtn = dlg.querySelector(".save-btn");
+
+    // 打開時帶入本機已存內容
+    open.addEventListener("click", ()=>{
+      ta.value = localStorage.getItem(p.key) || "";
+      saved.style.display = "none";
+      dlg.showModal();
+    });
+
+    // 儲存到本機
+    saveBtn.addEventListener("click", ()=>{
+      localStorage.setItem(p.key, ta.value || "");
+      saved.style.display = "block";
+      setTimeout(()=> saved.style.display = "none", 1200);
+    });
+  });
+}
+
+
 // ---- 信件對話框 & 初始化 ----
 function setupLetter(){ $("#openLetterBtn").addEventListener("click", ()=> $("#letter").showModal()); }
 addEventListener("DOMContentLoaded", ()=>{
