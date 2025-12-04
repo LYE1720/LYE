@@ -100,6 +100,64 @@ function setupNotes(){
   });
 }
 
+function setupCarousel(rootSelector, opts={}){
+  const el = (typeof rootSelector === "string") ? document.querySelector(rootSelector) : rootSelector;
+  if(!el) return;
+  const track = el.querySelector(".carousel-track");
+  const prev  = el.querySelector(".prev");
+  const next  = el.querySelector(".next");
+  const slides = Array.from(track.children);
+  const dotsWrap = el.querySelector(".carousel-dots");
+  let i = 0, timer = null;
+
+  // 建立 dots
+  if(dotsWrap && dotsWrap.children.length === 0){
+    slides.forEach((_, k)=>{
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "dot" + (k===0? " is-active": "");
+      b.setAttribute("aria-label", `第 ${k+1} 張`);
+      b.addEventListener("click", ()=> go(k));
+      dotsWrap.appendChild(b);
+    });
+  }
+  const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
+
+  function go(idx){
+    i = (idx + slides.length) % slides.length;
+    track.style.transform = `translateX(-${i*100}%)`;
+    dots.forEach((d, k)=> d.classList.toggle("is-active", k===i));
+  }
+  prev?.addEventListener("click", ()=> go(i-1));
+  next?.addEventListener("click", ()=> go(i+1));
+
+  // 鍵盤
+  el.tabIndex = 0;
+  el.addEventListener("keydown", e=>{
+    if(e.key === "ArrowLeft") go(i-1);
+    if(e.key === "ArrowRight") go(i+1);
+  });
+
+  // 觸控/滑鼠拖曳
+  let startX=0, dx=0, dragging=false;
+  const start = e => { dragging=true; startX=(e.touches? e.touches[0].clientX : e.clientX); track.style.transition="none"; };
+  const move  = e => { if(!dragging) return; const x=(e.touches? e.touches[0].clientX : e.clientX); dx=x-startX; track.style.transform=`translateX(calc(-${i*100}% + ${dx}px))`; };
+  const end   = () => { if(!dragging) return; track.style.transition="transform .4s ease"; if(Math.abs(dx)>50){ go(i + (dx>0? -1: +1)); } else { go(i); } dragging=false; dx=0; };
+  el.addEventListener("touchstart", start, {passive:true});
+  el.addEventListener("touchmove",  move,  {passive:true});
+  el.addEventListener("touchend",   end);
+  el.addEventListener("mousedown",  start);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", end);
+
+  // 自動播放
+  const { autoplay=true, interval=3500, pauseOnHover=true } = opts;
+  function play(){ if(!autoplay) return; stop(); timer = setInterval(()=> go(i+1), interval); }
+  function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+  if(pauseOnHover){ el.addEventListener("mouseenter", stop); el.addEventListener("mouseleave", play); document.addEventListener("visibilitychange", ()=> document.hidden? stop(): play()); }
+  go(0); play();
+  return { go, play, stop };
+}
+
 
 // ---- 信件對話框 & 初始化 ----
 function setupLetter(){ $("#openLetterBtn").addEventListener("click", ()=> $("#letter").showModal()); }
