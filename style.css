@@ -87,21 +87,15 @@ h2{margin:0 0 12px} .muted{color:var(--muted); margin:0 0 12px}
 .letter menu{ display:flex; justify-content:flex-end; gap:8px; padding:0; margin-top:12px }
 
 /* ===== 圖片輪播 ===== */
-.carousel{ position:relative; overflow:hidden; border-radius:18px;
-  border:1px solid #efe6ff; box-shadow:var(--shadow); background:#fff }
+.carousel{ position:relative; overflow:hidden; border-radius:18px; border:1px solid #efe6ff; box-shadow:var(--shadow); background:#fff }
 .carousel-track{ display:flex; transform:translateX(0); transition:transform .4s ease }
 .carousel .slide{ min-width:100%; aspect-ratio:16/9; background:#faf7ff; display:flex; align-items:center; justify-content:center }
 .carousel .slide img{ width:100%; height:100%; object-fit:cover }
-
-.carousel-btn{ position:absolute; top:50%; transform:translateY(-50%);
-  width:42px; height:42px; border-radius:999px; border:1px solid #e8d3ff;
-  background:rgba(255,255,255,.9); cursor:pointer; font-size:22px; line-height:1;
-  box-shadow:var(--shadow); display:grid; place-items:center }
-.carousel-btn:hover{ transform:translateY(-50%) scale(1.03) }
+.carousel-btn{ position:absolute; top:50%; transform:translateY(-50%); width:42px; height:42px; border-radius:999px; border:1px solid #e8d3ff; background:rgba(255,255,255,.9); cursor:pointer; font-size:22px; line-height:1; box-shadow:var(--shadow); display:grid; place-items:center }
 .carousel-btn.prev{ left:8px } .carousel-btn.next{ right:8px }
-
-.carousel-dots{ position:absolute; left:0; right:0; bottom:8px; display:flex; gap:6px; justify-content:center; pointer-events:auto }
+.carousel-dots{ position:absolute; left:0; right:0; bottom:8px; display:flex; gap:6px; justify-content:center }
 .carousel-dots .dot{ width:8px; height:8px; border-radius:999px; border:1px solid #e8d3ff; background:#fff }
 .carousel-dots .dot.is-active{ width:24px; background:linear-gradient(120deg,var(--accent),var(--accent-2)); border-color:transparent }
-@media (max-width:700px){ .carousel .slide{ aspect-ratio: 4/3 } }
+@media (max-width:700px){ .carousel .slide{ aspect-ratio:4/3 } }
+
 
