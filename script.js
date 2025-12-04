@@ -149,9 +149,14 @@ function setupCarousel(rootSelector, opts={}){
   go(0); play();
 }
 function setupLetter(){
-  const dlg = document.getElementById("letter");
-  ["openLetterBtn","openNote1","openNote2"].forEach(id=>{
-    const btn = document.getElementById(id);
+  const map = {
+    openLetterBtn: "letter",   // 第一顆 → #letter
+    openNote1:     "letter2",  // 第二顆 → #letter2
+    openNote2:     "letter3"   // 第三顆 → #letter3
+  };
+  Object.entries(map).forEach(([btnId, dlgId])=>{
+    const btn = document.getElementById(btnId);
+    const dlg = document.getElementById(dlgId);
     if (btn && dlg && typeof dlg.showModal === "function") {
       btn.addEventListener("click", ()=> dlg.showModal());
     }
