@@ -32,6 +32,8 @@
       <div class="hero-actions">
         <button id="celebrateBtn" class="btn primary">播放彩帶</button>
         <button id="openLetterBtn" class="btn">打開給妳的話</button>
+        <button id="openNote1" class="btn">還有其他想說的話</button>
+        <button id="openNote2" class="btn">妳可以再點點看</button>
       </div>
     </div>
   </header>
@@ -96,6 +98,31 @@
       </menu>
     </form>
   </dialog>
+
+  <dialog id="note1" class="letter">
+    <form method="dialog" class="note-form" data-key="note1">
+      <h3>還有其他想說的話</h3>
+      <textarea id="note1Text" placeholder="在這裡輸入你的話…" rows="8"></textarea>
+      <div id="note1Saved" class="muted" style="display:none;margin-top:6px">已儲存 ✓</div>
+      <menu>
+        <button class="btn" value="cancel">關閉</button>
+        <button type="button" class="btn primary save-btn">儲存到本機</button>
+      </menu>
+    </form>
+  </dialog>
+  
+  <dialog id="note2" class="letter">
+    <form method="dialog" class="note-form" data-key="note2">
+      <h3>妳可以再點點看</h3>
+      <textarea id="note2Text" placeholder="寫寫想對她說的話…" rows="8"></textarea>
+      <div id="note2Saved" class="muted" style="display:none;margin-top:6px">已儲存 ✓</div>
+      <menu>
+        <button class="btn" value="cancel">關閉</button>
+        <button type="button" class="btn primary save-btn">儲存到本機</button>
+      </menu>
+    </form>
+  </dialog>
+
 
   <footer class="footer">
     <p>Made with 💛 by <span id="yourName">（你的名字）</span></p>
