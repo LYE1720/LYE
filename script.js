@@ -148,14 +148,21 @@ function setupCarousel(rootSelector, opts={}){
 
   go(0); play();
 }
-
-
+function setupLetter(){
+  const dlg = document.getElementById("letter");
+  ["openLetterBtn","openNote1","openNote2"].forEach(id=>{
+    const btn = document.getElementById(id);
+    if (btn && dlg && typeof dlg.showModal === "function") {
+      btn.addEventListener("click", ()=> dlg.showModal());
+    }
+  });
+}
 
 // ---- 信件對話框 & 初始化 ----
 window.addEventListener("DOMContentLoaded", ()=>{
   setupCountdown();
   setupLetter();
-  setupNotes?.();
+  //setupNotes?.();
   setupGB?.();
 
   // 只在有輪播的頁面才啟動，避免首頁報錯
