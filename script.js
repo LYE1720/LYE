@@ -100,33 +100,42 @@ function setupNotes(){
   });
 }
 
-function setupCarousel(rootSelector, opts={}){
-  const el = document.querySelector(rootSelector);
+function setupCarousel(root, opts={}){
+  // 允許傳 selector 或元素本體
+  const el = (typeof root === "string") ? document.querySelector(root) : root;
   if(!el) return;
-  const track = el.querySelector(".carousel-track");
-  const prev  = el.querySelector(".prev");
-  const next  = el.querySelector(".next");
-  const slides = Array.from(track.children);
-  const dotsWrap = el.querySelector(".carousel-dots");
+
+  const track   = el.querySelector(".carousel-track");
+  const prev    = el.querySelector(".prev");
+  const next    = el.querySelector(".next");
+  const slides  = track ? Array.from(track.children) : [];
+  const dotsBox = el.querySelector(".carousel-dots");
+  if (!track || slides.length === 0) return;      // 組件沒組好就退出
+
   let i = 0, timer = null;
 
-  if(dotsWrap && dotsWrap.children.length===0){
+  // 建 dot
+  let dots = [];
+  if (dotsBox && dotsBox.children.length === 0){
     slides.forEach((_, k)=>{
       const b = document.createElement("button");
-      b.type="button"; b.className="dot"+(k===0?" is-active":"");
+      b.type = "button";
+      b.className = "dot" + (k===0? " is-active":"");
+      b.setAttribute("aria-label", `第 ${k+1} 張`);
       b.addEventListener("click", ()=> go(k));
-      dotsWrap.appendChild(b);
+      dotsBox.appendChild(b);
     });
+    dots = Array.from(dotsBox.children);
   }
-  const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
 
   function go(idx){
     i = (idx + slides.length) % slides.length;
     track.style.transform = `translateX(-${i*100}%)`;
     dots.forEach((d,k)=> d.classList.toggle("is-active", k===i));
   }
-  prev?.addEventListener("click", ()=> go(i-1));
-  next?.addEventListener("click", ()=> go(i+1));
+
+  prev && prev.addEventListener("click", ()=> go(i-1));
+  next && next.addEventListener("click", ()=> go(i+1));
 
   // 觸控拖曳
   let startX=0, dx=0, dragging=false;
@@ -141,10 +150,14 @@ function setupCarousel(rootSelector, opts={}){
   window.addEventListener("mouseup", end);
 
   // 自動播放
-  const { autoplay=true, interval=3500, pauseOnHover=true } = opts;
-  function play(){ if(!autoplay || slides.length<2) return; stop(); timer=setInterval(()=> go(i+1), interval); }
+  const { autoplay=true, interval=3000, pauseOnHover=true } = opts;
+  function play(){ if(!autoplay || slides.length < 2) return; stop(); timer = setInterval(()=> go(i+1), interval); }
   function stop(){ if(timer){ clearInterval(timer); timer=null; } }
-  if(pauseOnHover){ el.addEventListener("mouseenter", stop); el.addEventListener("mouseleave", play); document.addEventListener("visibilitychange", ()=> document.hidden? stop(): play()); }
+  if (pauseOnHover){
+    el.addEventListener("mouseenter", stop);
+    el.addEventListener("mouseleave", play);
+    document.addEventListener("visibilitychange", ()=> document.hidden ? stop() : play());
+  }
 
   go(0); play();
 }
@@ -166,14 +179,14 @@ function setupLetter(){
 // ---- 信件對話框 & 初始化 ----
 window.addEventListener("DOMContentLoaded", ()=>{
   setupCountdown();
-  setupLetter();
-  //setupNotes?.();
+  setupLetter?.();
   setupGB?.();
 
-  // 只在有輪播的頁面才啟動，避免首頁報錯
-  if (document.querySelector("#memoriesCarousel")) {
-    setupCarousel("#memoriesCarousel", { autoplay: true, interval: 3000 });
-  }
+  // 自動初始化頁面上所有 .carousel
+  document.querySelectorAll(".carousel").forEach(car=>{
+    setupCarousel(car, { autoplay: true, interval: 3000 });
+  });
+
   setTimeout(()=> runConfetti(3000), 800);
 });
 
