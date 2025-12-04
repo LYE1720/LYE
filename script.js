@@ -160,7 +160,16 @@ function setupCarousel(rootSelector, opts={}){
 
 
 // ---- 信件對話框 & 初始化 ----
-function setupLetter(){ $("#openLetterBtn").addEventListener("click", ()=> $("#letter").showModal()); }
-addEventListener("DOMContentLoaded", ()=>{
-  setupCountdown(); setupLetter(); setupGB(); setTimeout(()=> runConfetti(3000), 800);
+window.addEventListener("DOMContentLoaded", ()=>{
+  setupCountdown();
+  setupLetter();
+  setupNotes?.();
+  setupGB?.();
+
+  // 只在有輪播的頁面才啟動，避免首頁報錯
+  if (document.querySelector("#memoriesCarousel")) {
+    setupCarousel("#memoriesCarousel", { autoplay: true, interval: 3000 });
+  }
+  setTimeout(()=> runConfetti(3000), 800);
 });
+
