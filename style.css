@@ -79,3 +79,9 @@ h2{margin:0 0 12px} .muted{color:var(--muted); margin:0 0 12px}
   .topnav .nav{ flex-wrap: wrap; }
 }
 
+.letter textarea{
+  width:100%; min-height:160px; resize:vertical;
+  border:1px solid #ecd9ff; border-radius:12px; padding:12px;
+  outline:none; font: inherit; background:#fff;
+}
+.letter menu{ display:flex; justify-content:flex-end; gap:8px; padding:0; margin-top:12px }
