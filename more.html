@@ -44,46 +44,47 @@
 
  <section class="card" id="polaroid-wall">
   <h2>拍立得相片牆</h2>
-  <ul class="polaroids">
-    <li class="r1" data-id="p1">
-      <figure>
-        <img src="assets/no1.jpg" alt="頒獎典禮">
-        <figcaption>
-          <div class="cap-row">
-            <span class="title">頒獎典禮</span>
-            <button class="btn tiny note-btn" data-id="p1">解鎖看更多</button>
-          </div>
-          <div class="note" id="note-p1"> 林芷儀這麼正常真是難得 </div>
-        </figcaption>
-      </figure>
-    </li>
+ <ul class="polaroids">
+  <li class="r1">
+    <figure>
+      <img src="assets/no1.jpg" alt="回憶 A">
+      <figcaption>
+        <div class="cap-row">
+          <span class="title">回憶 A</span>
+          <button class="btn tiny" data-letter="tpl-p1" data-title="回憶 A">解鎖看更多</button>
+        </div>
+        <div class="note-sum">23</div> <!-- 小字或簡短備註，想拿掉可整行刪除 -->
+      </figcaption>
+    </figure>
+  </li>
 
-    <li class="r2" data-id="p2">
-      <figure>
-        <img src="assets/bdpic3.jpg" alt="回憶 B">
-        <figcaption>
-          <div class="cap-row">
-            <span class="title">回憶 B</span>
-            <button class="btn tiny note-btn" data-id="p2">寫敘述</button>
-          </div>
-          <div class="note" id="note-p2">（還沒有敘述）</div>
-        </figcaption>
-      </figure>
-    </li>
+  <li class="r2">
+    <figure>
+      <img src="assets/bdpic3.jpg" alt="回憶 B">
+      <figcaption>
+        <div class="cap-row">
+          <span class="title">回憶 B</span>
+          <button class="btn tiny" data-letter="tpl-p2" data-title="回憶 B">解鎖看更多</button>
+        </div>
+        <div class="note-sum">（還沒有敘述）</div>
+      </figcaption>
+    </figure>
+  </li>
 
-    <li class="r3" data-id="p3">
-      <figure>
-        <img src="assets/bdpic4.jpg" alt="回憶 C">
-        <figcaption>
-          <div class="cap-row">
-            <span class="title">回憶 C</span>
-            <button class="btn tiny note-btn" data-id="p3">寫敘述</button>
-          </div>
-          <div class="note" id="note-p3">（還沒有敘述）</div>
-        </figcaption>
-      </figure>
-    </li>
-    <!-- 需要更多就複製 li，記得 data-id、img、title 都換 -->
+  <li class="r3">
+    <figure>
+      <img src="assets/bdpic4.jpg" alt="回憶 C">
+      <figcaption>
+        <div class="cap-row">
+          <span class="title">回憶 C</span>
+          <button class="btn tiny" data-letter="tpl-p3" data-title="回憶 C">解鎖看更多</button>
+        </div>
+        <div class="note-sum">（還沒有敘述）</div>
+      </figcaption>
+    </figure>
+  </li>
+</ul>
+
   </ul>
 </section>
 
@@ -165,6 +166,34 @@
     生日快樂～希望你永遠開心 不要有煩惱 🥳🥳</p>
 </template>
 
+<!-- 通用對話框（全站共用一個） -->
+<dialog id="letter" class="letter">
+  <form method="dialog">
+    <h3 id="dlgTitle">訊息</h3>
+    <div id="dlgBody" class="dlg-body"></div>
+    <menu><button class="btn primary">關閉</button></menu>
+  </form>
+</dialog>
+
+<!-- 這裡是預先寫好的內容：按鈕只要指向對應 id -->
+<template id="tpl-p1">
+  <p>那天的頒獎好可愛：妳拿著證書笑得像小太陽 🌞</p>
+  <ul>
+    <li>關鍵字：努力、成就、一起見證</li>
+    <li>我記得妳說「有你在更安心」，我也一樣。</li>
+  </ul>
+</template>
+
+<template id="tpl-p2">
+  <p>這張是最代表妳的笑：明亮又有能量 ✨</p>
+  <p>希望以後的日子，也都能這樣被喜歡與幸運包圍。</p>
+</template>
+
+<template id="tpl-p3">
+  <p>舞台上的妳超閃，聽見尖叫我比妳還驕傲 😆</p>
+  <p>清單＋1：下一次想站得更近一點，一起把回憶收滿。</p>
+</template>
+
   
 <script src="script.js"></script>
   <!-- 這頁專用的小腳本（不動你的 script.js） -->
@@ -230,6 +259,25 @@
 })();
 </script>
 
+<script>
+  // 點任何含 data-letter 的按鈕 → 開啟通用對話框，載入對應模板
+  (function(){
+    const dlg   = document.getElementById("letter");
+    const title = document.getElementById("dlgTitle");
+    const body  = document.getElementById("dlgBody");
+    if(!dlg || !title || !body) return;
+
+    document.addEventListener("click", (e)=>{
+      const btn = e.target.closest("[data-letter]");
+      if(!btn) return;
+      const tpl = document.getElementById(btn.dataset.letter);
+      if(!tpl) return alert("找不到內容模板：" + btn.dataset.letter);
+      title.textContent = btn.dataset.title || "訊息";
+      body.innerHTML = tpl.innerHTML;
+      dlg.showModal();
+    });
+  })();
+</script>
 
 <script>
   // 點任一含 data-letter 的按鈕 → 開通用對話框，載入對應模板
