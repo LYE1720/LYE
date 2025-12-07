@@ -1,46 +1,103 @@
-<!doctype html><html lang="zh-Hant"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>更多回憶</title>
-<link href="style.css" rel="stylesheet">
-</head><body>
-<nav class="topnav">
-  <a href="index.html">首頁</a>
-  <a href="more.html">更多回憶</a>
-</nav>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>更多回憶</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- 為了相容你現有的 script.js（彩帶程式），這頁也放一個 canvas，無害 -->
+  <canvas id="confetti"></canvas>
 
-<header class="hero"><div class="hero-inner">
-  <h1>更多回憶與祝福</h1>
-  <p class="subtitle">這一頁放更多照片、影片、文字、朋友的留言集合</p>
-</div></header>
-
-<main class="container">
-<section class="card">
-  <h2>相片輪播</h2>
-
-  <div class="carousel" aria-label="相片輪播">
-    <button class="carousel-btn prev" aria-label="上一張">❮</button>
-
-    <div class="carousel-track">
-      <div class="slide"><img src="assets/bdpic2.jpg" alt="回憶 1" loading="lazy" decoding="async"></div>
-      <div class="slide"><img src="assets/bdpic3.jpg" alt="回憶 2" loading="lazy" decoding="async"></div>
-      <div class="slide"><img src="assets/bdpic4.jpg" alt="回憶 3" loading="lazy" decoding="async"></div>
+  <nav class="topnav">
+    <a class="brand" href="index.html">🎂 Happy Day</a>
+    <div class="nav">
+      <a href="index.html">首頁</a>
+      <a href="more.html" aria-current="page">更多回憶</a>
     </div>
+  </nav>
 
-    <button class="carousel-btn next" aria-label="下一張">❯</button>
-    <div class="carousel-dots" role="tablist"></div>
-  </div>
-</section>
-
-
-  <section class="card">
-    <h2>影片清單 2</h2>
-    <div class="videos-grid">
-      <div class="video-wrap"><iframe src="https://www.youtube.com/embed/VIDEO_ID_A" allowfullscreen></iframe></div>
-      <div class="video-wrap"><iframe src="https://www.youtube.com/embed/VIDEO_ID_B" allowfullscreen></iframe></div>
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>更多回憶與祝福</h1>
+      <p class="subtitle">把我們的小事記下來，慢慢就成了大事 ✨</p>
     </div>
-  </section>
-</main>
+  </header>
 
-<footer class="footer"><p>Made with 💛</p></footer>
-<script src="script.js"></script>
-</body></html>
+  <main class="container">
+
+    <!-- 1) 里程碑時間軸 -->
+    <section class="card">
+      <h2>里程碑時間軸</h2>
+      <ul class="timeline">
+        <li>
+          <div class="dot"></div>
+          <time>2023-09</time>
+          <h3>第一次一起出遊</h3>
+          <p>海風吹來超舒服，結果把帽子吹走 😆</p>
+        </li>
+        <li>
+          <div class="dot"></div>
+          <time>2024-02</time>
+          <h3>一起跨年補班</h3>
+          <p>超級忙，但還是偷塞了熱可可與手寫卡片。</p>
+        </li>
+        <li>
+          <div class="dot"></div>
+          <time>2025-07</time>
+          <h3>願望達成清單 +1</h3>
+          <p>還記得那天笑到肚子痛的點嗎？我記得。</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 2) 拍立得相片牆（可任意增減） -->
+    <section class="card">
+      <h2>拍立得相片牆</h2>
+      <ul class="polaroids">
+        <li class="r1"><figure><img src="assets/bdpic2.jpg" alt="回憶 A"><figcaption>回憶 A</figcaption></figure></li>
+        <li class="r2"><figure><img src="assets/bdpic3.jpg" alt="回憶 B"><figcaption>回憶 B</figcaption></figure></li>
+        <li class="r3"><figure><img src="assets/bdpic4.jpg" alt="回憶 C"><figcaption>回憶 C</figcaption></figure></li>
+        <!-- 多放幾張就複製上面 li，換圖即可 -->
+      </ul>
+      <p class="muted" style="margin-top:8px">提示：想放更多張，就在 <code>.polaroids</code> 裡多加 <code>&lt;li&gt;</code>。</p>
+    </section>
+
+    <!-- 3) 我們的待辦清單（會存到本機） -->
+    <section class="card">
+      <h2>我們的待辦清單</h2>
+      <ul class="todo" id="bucketList">
+        <li><label><input type="checkbox" data-id="b1"> 去看一場演唱會</label></li>
+        <li><label><input type="checkbox" data-id="b2"> 一起做一款甜點</label></li>
+        <li><label><input type="checkbox" data-id="b3"> 再回到最初見面的那條街</label></li>
+        <li><label><input type="checkbox" data-id="b4"> 幫彼此選一份小禮物</label></li>
+      </ul>
+      <p class="muted" style="margin-top:8px">打勾會自動記住（只存這台裝置）。</p>
+    </section>
+
+  </main>
+
+  <footer class="footer"><p>Made with 💛</p></footer>
+
+  <script src="script.js"></script>
+  <!-- 這頁專用的小腳本（不動你的 script.js） -->
+  <script>
+    // 待辦清單：把勾選狀態存到 localStorage
+    (function(){
+      const key = "bucket-v1";
+      const wrap = document.getElementById("bucketList");
+      if(!wrap) return;
+      const saved = JSON.parse(localStorage.getItem(key) || "{}");
+      wrap.querySelectorAll('input[type="checkbox"]').forEach(box=>{
+        const id = box.dataset.id;
+        if (saved[id]) box.checked = true;
+        box.addEventListener("change", ()=>{
+          saved[id] = box.checked;
+          localStorage.setItem(key, JSON.stringify(saved));
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
