@@ -165,8 +165,8 @@ function setupLetter(){
   const map = {
     openLetterBtn: "letter",   // 第一顆 → #letter
     openNote1:     "letter2",  // 第二顆 → #letter2
-    openNote2:     "letter3",   // 第三顆 → #letter3
-    openNote3:     "letter4"
+    openNote2:     "letter3",  // 第三顆 → #letter3
+    openNote3:     "letter4"   // 第四顆 → #letter4
   };
   Object.entries(map).forEach(([btnId, dlgId])=>{
     const btn = document.getElementById(btnId);
@@ -176,6 +176,7 @@ function setupLetter(){
     }
   });
 }
+
 
 // ---- 信件對話框 & 初始化 ----
 window.addEventListener("DOMContentLoaded", ()=>{
