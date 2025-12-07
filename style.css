@@ -132,4 +132,8 @@ h2{margin:0 0 12px} .muted{color:var(--muted); margin:0 0 12px}
 /* 讓對話框內容可捲動（若尚未加入） */
 .letter .dlg-body, .letter textarea{ width:100%; box-sizing:border-box }
 
+.polaroids .cap-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.btn.tiny{ padding:4px 10px; font-size:12px; border-radius:999px }
+.note-sum{ margin-top:6px; font-size:12px; color:#5b4c88 }
+.letter .dlg-body{ max-height:60vh; overflow:auto } /* 對話框內容過長可捲動 */
 
