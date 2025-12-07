@@ -42,30 +42,50 @@
   <canvas id="confetti"></canvas>
   <main class="container">
 
-    <!-- 1) 里程碑時間軸 -->
-    <section class="card">
-      <h2>里程碑時間軸</h2>
-      <ul class="timeline">
-        <li>
-          <div class="dot"></div>
-          <time>2023-09</time>
-          <h3>第一次一起出遊</h3>
-          <p>海風吹來超舒服，結果把帽子吹走 😆</p>
-        </li>
-        <li>
-          <div class="dot"></div>
-          <time>2024-02</time>
-          <h3>一起跨年補班</h3>
-          <p>超級忙，但還是偷塞了熱可可與手寫卡片。</p>
-        </li>
-        <li>
-          <div class="dot"></div>
-          <time>2025-07</time>
-          <h3>願望達成清單 +1</h3>
-          <p>還記得那天笑到肚子痛的點嗎？我記得。</p>
-        </li>
-      </ul>
-    </section>
+ <section class="card" id="polaroid-wall">
+  <h2>拍立得相片牆</h2>
+  <ul class="polaroids">
+    <li class="r1" data-id="p1">
+      <figure>
+        <img src="assets/bdpic2.jpg" alt="回憶 A">
+        <figcaption>
+          <div class="cap-row">
+            <span class="title">回憶 A</span>
+            <button class="btn tiny note-btn" data-id="p1">寫敘述</button>
+          </div>
+          <div class="note" id="note-p1">（還沒有敘述）</div>
+        </figcaption>
+      </figure>
+    </li>
+
+    <li class="r2" data-id="p2">
+      <figure>
+        <img src="assets/bdpic3.jpg" alt="回憶 B">
+        <figcaption>
+          <div class="cap-row">
+            <span class="title">回憶 B</span>
+            <button class="btn tiny note-btn" data-id="p2">寫敘述</button>
+          </div>
+          <div class="note" id="note-p2">（還沒有敘述）</div>
+        </figcaption>
+      </figure>
+    </li>
+
+    <li class="r3" data-id="p3">
+      <figure>
+        <img src="assets/bdpic4.jpg" alt="回憶 C">
+        <figcaption>
+          <div class="cap-row">
+            <span class="title">回憶 C</span>
+            <button class="btn tiny note-btn" data-id="p3">寫敘述</button>
+          </div>
+          <div class="note" id="note-p3">（還沒有敘述）</div>
+        </figcaption>
+      </figure>
+    </li>
+    <!-- 需要更多就複製 li，記得 data-id、img、title 都換 -->
+  </ul>
+</section>
 
     <!-- 2) 拍立得相片牆（可任意增減） -->
     <section class="card">
@@ -94,7 +114,19 @@
   </main>
 
   <footer class="footer"><p>Made with 💛</p></footer>
-  
+
+<!-- 通用敘述對話框 -->
+<dialog id="noteDialog" class="letter">
+  <form method="dialog">
+    <h3 id="noteTitle">寫敘述</h3>
+    <textarea id="noteTextarea" rows="6" placeholder="在這裡輸入這張照片的敘述…"></textarea>
+    <menu>
+      <button class="btn" value="cancel">取消</button>
+      <button class="btn primary" id="noteSave" type="button">儲存</button>
+    </menu>
+  </form>
+</dialog>
+
 <!-- 通用對話框（只有一個） -->
 <dialog id="letter" class="letter">
   <form method="dialog">
@@ -118,7 +150,7 @@
 </template>
 
   
-  <script src="script.js"></script>
+<script src="script.js"></script>
   <!-- 這頁專用的小腳本（不動你的 script.js） -->
   <script>
     // 待辦清單：把勾選狀態存到 localStorage
@@ -139,6 +171,49 @@
   </script>
 </body>
 </html>
+<script>
+(function(){
+  const KEY = "photo-note-";
+  const dlg = document.getElementById("noteDialog");
+  const titleEl = document.getElementById("noteTitle");
+  const ta = document.getElementById("noteTextarea");
+  const saveBtn = document.getElementById("noteSave");
+  let currentId = null;
+
+  // 讀寫本機
+  const load = id => localStorage.getItem(KEY+id) || "";
+  const save = (id, text) => localStorage.setItem(KEY+id, text||"");
+
+  // 初始化把本機敘述顯示到每張卡片
+  document.querySelectorAll(".polaroids [data-id]").forEach(item=>{
+    const id = item.dataset.id;
+    const el = document.getElementById("note-"+id);
+    if (el) el.textContent = load(id) || "（還沒有敘述）";
+  });
+
+  // 點「寫敘述」開啟對話框
+  document.addEventListener("click", (e)=>{
+    const btn = e.target.closest(".note-btn");
+    if (!btn) return;
+    currentId = btn.dataset.id;
+    const title = btn.closest("figure")?.querySelector(".title")?.textContent || "寫敘述";
+    titleEl.textContent = `寫敘述 - ${title}`;
+    ta.value = load(currentId);
+    dlg.showModal();
+  });
+
+  // 存檔
+  saveBtn.addEventListener("click", ()=>{
+    if (!currentId) return;
+    const text = ta.value.trim();
+    save(currentId, text);
+    const target = document.getElementById("note-"+currentId);
+    if (target) target.textContent = text || "（還沒有敘述）";
+    dlg.close();
+  });
+})();
+</script>
+
 
 <script>
   // 點任一含 data-letter 的按鈕 → 開通用對話框，載入對應模板
