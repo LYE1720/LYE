@@ -166,7 +166,8 @@ function setupLetter(){
     openLetterBtn: "letter",   // 第一顆 → #letter
     openNote1:     "letter2",  // 第二顆 → #letter2
     openNote2:     "letter3",  // 第三顆 → #letter3
-    openNote3:     "letter4"   // 第四顆 → #letter4
+    openNote3:     "letter4",   // 第四顆 → #letter4
+    openNote4:     "letter5",  // 第四顆 → #letter5
   };
   Object.entries(map).forEach(([btnId, dlgId])=>{
     const btn = document.getElementById(btnId);
