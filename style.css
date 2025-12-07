@@ -121,5 +121,15 @@ h2{margin:0 0 12px} .muted{color:var(--muted); margin:0 0 12px}
 .todo label{ display:flex; gap:10px; align-items:center; padding:10px 12px; border:1px solid #efe6ff; border-radius:12px; background:#fff }
 .todo input[type="checkbox"]{ width:18px; height:18px }
 
+.polaroids figcaption{ margin-top:6px }
+.polaroids .cap-row{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+}
+.btn.tiny{ padding:4px 10px; font-size:12px; border-radius:999px }
+.polaroids .note{
+  margin-top:6px; font-size:12px; color:#5b4c88; line-height:1.6; white-space:pre-wrap;
+}
+/* 讓對話框內容可捲動（若尚未加入） */
+.letter .dlg-body, .letter textarea{ width:100%; box-sizing:border-box }
 
 
