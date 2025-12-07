@@ -217,3 +217,22 @@ h2{margin:0 0 12px} .muted{color:var(--muted); margin:0 0 12px}
   }
 }
 
+/* 讓這個相片牆一列兩張（寬螢幕） */
+#bigPolaroids{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;               /* 卡片間距可自行調整 */
+}
+
+/* 不要裁切：圖片高度自動，完整顯示 */
+#bigPolaroids img{
+  width: 100%;
+  height: auto !important;         /* 覆蓋先前的固定高度 */
+  object-fit: contain !important;  /* 以「完整顯示」方式塞進卡片 */
+}
+
+/* 手機改成一列一張 */
+@media (max-width: 720px){
+  #bigPolaroids{ grid-template-columns: 1fr; }
+}
+
