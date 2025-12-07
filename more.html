@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>更多回憶</title>
   <link rel="stylesheet" href="style.css"/>
+
+  <div class="hero-actions">
+  <button id="celebrateBtn" class="btn primary">播放彩帶</button>
+
+  <!-- 每顆按鈕指定 data-letter（要顯示哪個模板），可選 data-title 當對話框標題 -->
+  <button class="btn" data-letter="tpl-more-1" data-title="小記 #1">打開小記 #1</button>
+  <button class="btn" data-letter="tpl-more-2" data-title="小記 #2">打開小記 #2</button>
+  <button class="btn" data-letter="tpl-more-3" data-title="小記 #3">打開小記 #3</button>
+</div>
+
 </head>
 <body>
   <!-- 為了相容你現有的 script.js（彩帶程式），這頁也放一個 canvas，無害 -->
@@ -79,7 +89,30 @@
   </main>
 
   <footer class="footer"><p>Made with 💛</p></footer>
+  
+<!-- 通用對話框（只有一個） -->
+<dialog id="letter" class="letter">
+  <form method="dialog">
+    <h3 id="dlgTitle">訊息</h3>
+    <div id="dlgBody" class="dlg-body"></div>
+    <menu><button class="btn primary">關閉</button></menu>
+  </form>
+</dialog>
 
+<!-- 內容模板們（想加幾段就多放幾個 <template>） -->
+<template id="tpl-more-1">
+  <p>這一段寫你想說的小記 #1，可以用<br>換行，也能放<strong>粗體</strong>或小表情 ✨</p>
+</template>
+
+<template id="tpl-more-2">
+  <p>小記 #2：把某個回憶寫下來，像是某次好笑的烏龍、某句你很喜歡的話。</p>
+</template>
+
+<template id="tpl-more-3">
+  <p>小記 #3：放個祝福、承諾或下一個小目標。</p>
+</template>
+
+  
   <script src="script.js"></script>
   <!-- 這頁專用的小腳本（不動你的 script.js） -->
   <script>
@@ -101,3 +134,23 @@
   </script>
 </body>
 </html>
+
+<script>
+  // 點任一含 data-letter 的按鈕 → 開通用對話框，載入對應模板
+  (function(){
+    const dlg   = document.getElementById("letter");
+    const title = document.getElementById("dlgTitle");
+    const body  = document.getElementById("dlgBody");
+    if(!dlg || !title || !body) return;
+
+    document.addEventListener("click", (e)=>{
+      const btn = e.target.closest("[data-letter]");
+      if(!btn) return;
+      const tpl = document.getElementById(btn.dataset.letter);
+      if(!tpl) return alert("找不到內容模板：" + btn.dataset.letter);
+      title.textContent = btn.dataset.title || "訊息";
+      body.innerHTML = tpl.innerHTML;
+      dlg.showModal();
+    });
+  })();
+</script>
