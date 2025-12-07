@@ -98,6 +98,28 @@ h2{margin:0 0 12px} .muted{color:var(--muted); margin:0 0 12px}
 .carousel-dots .dot.is-active{ width:24px; background:linear-gradient(120deg,var(--accent),var(--accent-2)); border-color:transparent }
 @media (max-width:700px){ .carousel .slide{ aspect-ratio:4/3 } }
 
+/* 時間軸 */
+.timeline{ position:relative; margin:0; padding:0 0 0 22px; list-style:none }
+.timeline::before{ content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background:#efe6ff }
+.timeline li{ position:relative; margin:14px 0; padding-left:10px }
+.timeline .dot{ position:absolute; left:-2px; top:.5em; width:10px; height:10px; border-radius:50%; background:linear-gradient(120deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 3px #f7f2ff }
+.timeline time{ display:inline-block; font-size:12px; color:#7a6aa6; margin-bottom:4px }
+.timeline h3{ margin:.1em 0 .2em; font-size:16px }
+
+/* 拍立得相片牆 */
+.polaroids{ display:grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap:14px; list-style:none; padding:0; margin:0 }
+.polaroids figure{ background:#fff; border:1px solid #eee; border-radius:10px; padding:8px 8px 16px; box-shadow:0 6px 18px rgba(0,0,0,.06); transform-origin:50% 40%; transition:transform .15s ease, box-shadow .15s ease }
+.polaroids img{ width:100%; height:180px; object-fit:cover; border-radius:6px }
+.polaroids figcaption{ text-align:center; font-size:12px; color:#6b5a9a; margin-top:6px }
+.polaroids li.r1 figure{ transform:rotate(-2.5deg) }
+.polaroids li.r2 figure{ transform:rotate(2deg) }
+.polaroids li.r3 figure{ transform:rotate(-1.2deg) }
+.polaroids figure:hover{ transform:rotate(0deg) translateY(-2px); box-shadow:0 10px 22px rgba(0,0,0,.09) }
+
+/* 待辦清單 */
+.todo{ list-style:none; padding:0; margin:0; display:grid; gap:10px }
+.todo label{ display:flex; gap:10px; align-items:center; padding:10px 12px; border:1px solid #efe6ff; border-radius:12px; background:#fff }
+.todo input[type="checkbox"]{ width:18px; height:18px }
 
 
 
