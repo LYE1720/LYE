@@ -174,3 +174,46 @@ h2{margin:0 0 12px} .muted{color:var(--muted); margin:0 0 12px}
     --polaroid-img-h: 240px;
   }
 }
+
+/* 大卡片：只影響 #bigPolaroids 這一塊 */
+#bigPolaroids{
+  /* 想再更大就調這兩個數字 */
+  --pol-min: 300px;     /* 卡片最小寬度 */
+  --pol-img-h: 360px;   /* 圖片高度 */
+}
+
+/* 讓此區的網格使用上面的變數 */
+#bigPolaroids{
+  display: grid; /* 若你原本的 .polaroids 已經有 display:grid，這行可省略 */
+  grid-template-columns: repeat(auto-fit, minmax(var(--pol-min), 1fr)) !important;
+  gap: 24px; /* 卡片間距可依喜好調整 */
+}
+
+/* 放大卡片外框與陰影 */
+#bigPolaroids figure{
+  padding: 14px 14px 24px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.08);
+}
+
+/* 放大圖片 */
+#bigPolaroids img{
+  width: 100%;
+  height: var(--pol-img-h) !important;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* 放大下面的字與按鈕 */
+#bigPolaroids .cap-row .title{ font-size: 16px; }
+#bigPolaroids .btn.tiny{ padding: 6px 12px; font-size: 13px; }
+#bigPolaroids .note-sum{ font-size: 13px; }
+
+/* 手機自動縮小一點，避免一張太大擠不下 */
+@media (max-width: 560px){
+  #bigPolaroids{
+    --pol-min: 220px;
+    --pol-img-h: 260px;
+  }
+}
+
