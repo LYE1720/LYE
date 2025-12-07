@@ -260,3 +260,7 @@ h2{margin:0 0 12px} .muted{color:var(--muted); margin:0 0 12px}
 #more-hero h1 { font-weight: 800; }
 
 .hero h1 { font-weight: 800; }
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;800&display=swap" rel="stylesheet">
