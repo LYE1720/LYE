@@ -264,3 +264,10 @@ h2{margin:0 0 12px} .muted{color:var(--muted); margin:0 0 12px}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;800&display=swap" rel="stylesheet">
+
+/* 如果你的 hero 有 id="more-hero" */
+#more-hero h1 { font-weight: 800 !important; }
+
+/* 如果沒有 id，也可以這樣全站 hero 用 800（擇一即可）*/
+/* .hero h1 { font-weight: 800 !important; } */
+
