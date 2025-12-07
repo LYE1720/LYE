@@ -4,7 +4,20 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>更多回憶</title>
+
+  <!-- ① 載入 Noto Sans TC 400/600/800（和首頁一致） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- ② 你的全站樣式 -->
   <link rel="stylesheet" href="style.css"/>
+
+  <!-- ③ 只讓「更多回憶」這頁的 H1 一定是 800 -->
+  <style>
+    #more-hero h1{ font-weight: 800 !important; }
+    /* 若想全站 hero 都變 800： .hero h1{ font-weight:800!important; } */
+  </style>
 </head>
 <body>
   <canvas id="confetti"></canvas>
