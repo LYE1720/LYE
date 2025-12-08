@@ -169,7 +169,7 @@ function setupLetter(){
     openNote3:     "letter4",  // 第四顆 → #letter4
     openNote4:     "letter5",  // 第五顆 → #letter5
     openNote5:     "letter6",  // 第六顆 → #letter6
-    openNote６:     "letter７",  // 第六顆 → #letter6
+    openNote６:    "letter７"  // 第七顆 → #letter７
   };
   Object.entries(map).forEach(([btnId, dlgId])=>{
     const btn = document.getElementById(btnId);
